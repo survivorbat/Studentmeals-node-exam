@@ -1,0 +1,7 @@
+{
+    "webPort": "300",
+    "dbHost": "37.139.12.220",
+    "dbUser": "maarten",
+    "dbDatabase": "maarten_persons",
+    "secretkey": "lol"
+}
