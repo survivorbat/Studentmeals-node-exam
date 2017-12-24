@@ -13,13 +13,6 @@ app.use(bodyparser.urlencoded({extended:true}));
 /* All routes */
 app.use(router);
 
-/* Catch any undefined routes with a 404 status*/
-app.get('*', (req, res) => {
-	res.status(404).send({
-		message: '404 not found'
-	}).end();
-})
-
 /* Start server on a pre-defined port or 5000  */
 app.listen(process.env.PORT || 5000, () => {
 	if(process.env.PORT !== undefined){
