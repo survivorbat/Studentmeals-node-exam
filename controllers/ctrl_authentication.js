@@ -15,7 +15,7 @@ module.exports =
         if (error)
         {
             console.log(error);
-            res.status(500).send(error);
+            res.status(401).send(error);
             return;
         };
         const legit = results[0].legit;
@@ -31,7 +31,7 @@ module.exports =
         else 
         {
             //Invalid login details reply to user with an error.
-            res.status(401).json({ "error": "Invalid credentials, contact 23IVK1 at Avans University of Applied Science in Breda!" })
+            res.status(401).json({ "error": "Invalid credentials, contact 23IVK1 at Avans University of Applied Science in Breda! P.S. Ensure that you have sent nodes before contacting s.v.p.!" })
         }
         });
     }
