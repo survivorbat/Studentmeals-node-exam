@@ -10,6 +10,7 @@ function encryptAuthToken(studentNumber)
 {
 	//Filling the payload with information about the token.
 	const payload = {
+		//Giving 2 hours for now as expired date.
 		dateExpires: moment().add(2, 'hours').unix(),
 		dateCreated: moment().unix(),
 		studentNumber: studentNumber

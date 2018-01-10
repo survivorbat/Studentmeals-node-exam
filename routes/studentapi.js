@@ -3,10 +3,10 @@ const routes = express.Router();
 
 const studentcontroller = require('../controllers/ctrl_student');
 
-routes.get('/', (req, res, next) => {
-	res.contentType('application/json');
-	next();
-});
+// routes.get('/', (req, res, next) => {
+// 	res.contentType('application/json');
+// 	next();
+// });
 
 routes.get('/', studentcontroller.getAll);
 

@@ -2,13 +2,17 @@
 const express = require('express');
 const app = express();
 const logger = require('morgan');
-const bodyparser = require('body-parser');
+const bodyParser = require('body-parser');
 const router = require('./router');
 
 /* Middleware */
 app.use(logger('dev'));
-app.use(bodyparser.json());
-app.use(bodyparser.urlencoded({extended:true}));
+app.use(bodyParser.json());
+//Parsing application/vnd.api+json as JSON.
+app.use(bodyParser.json({type:'application/vnd.api+json'})); 
+app.use(bodyParser.urlencoded({extended:true}));
+
+
 
 /* The router file */
 app.use(router);
