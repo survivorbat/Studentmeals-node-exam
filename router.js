@@ -4,7 +4,7 @@ const router = express.Router();
 /* Subroutes */
 const studentapi = require('./routes/studentapi.js');
 router.use('/api/student/', studentapi);
-
+//JWT insert
 router.use((error,req,res,next) => {
 	res.status(500).send({
 		error: error
