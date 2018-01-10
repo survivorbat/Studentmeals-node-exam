@@ -10,11 +10,11 @@ app.use(logger('dev'));
 app.use(bodyparser.json());
 app.use(bodyparser.urlencoded({extended:true}));
 
-/* All routes */
+/* The router file */
 app.use(router);
 
 /* Start server on a pre-defined port or 5000  */
-app.listen(process.env.PORT || 5000, () => {
+app.listen(process.env.PORT || 5000, () => { //Sends nodes
 	if(process.env.PORT !== undefined){
 		console.log('Server gestart op poort '+process.env.PORT);
 	} else {
