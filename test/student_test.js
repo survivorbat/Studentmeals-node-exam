@@ -17,10 +17,10 @@ describe('Error testing', () => {
 	});
 })
 
-describe('Person API interface', () => {
-	it('should GET /api/person/ correctly', done => {
+describe('Student API interface', () => {
+	it('should GET /api/student/ correctly', done => {
 		chai.request(server)
-			.get('/api/person')
+			.get('/api/student')
 			.end((err, res) => {
 				res.should.have.status(200);
 				res.body.should.be.a('array');

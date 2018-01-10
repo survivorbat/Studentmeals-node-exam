@@ -3,7 +3,7 @@ const db = require('../config/db');
 module.exports = {
     getAll(req, res, next){
         res.status(200);
-        db.query('SELECT * from Students', function (error, results, fields) {
+        db.query('SELECT ID, Firstname, Insertion, Lastname, Email, PhoneNumber from Students', function (error, results, fields) {
             if (error){
                 console.log(error);
                 res.status(500).send(error);
@@ -17,7 +17,7 @@ module.exports = {
             res.status(422).end();
             return;
         } 
-        db.query('SELECT * from Students WHERE id = ?', [req.params['id']], function (error, results, fields) {
+        db.query('SELECT ID, Firstname, Insertion, Lastname, Email, PhoneNumber from Students WHERE ID = ?', [req.params['id']], function (error, results, fields) {
             if (error){
                 console.log(error);
                 res.status(500).send(error);
@@ -31,7 +31,7 @@ module.exports = {
             res.status(422).end();
             return;
         }
-        db.query('INSERT INTO Students (firstname,lastname,city) VALUES (?,?,?)', [req.body['firstname'],req.body['lastname'],req.body['city']], function (error, results, fields) {
+        db.query('INSERT INTO Students (FirstName, Insertion, LastName, Email, PhoneNumber, Password) VALUES (?,?,?,?,?)', [req.body['firstname'],req.body['insertion'],req.body['lastname'],req.body['email'],req.body['phonenumber'],req.body['password']], function (error, results, fields) {
             if (error){
                 console.log(error);
                 res.status(500).send(error);
@@ -45,7 +45,7 @@ module.exports = {
             res.status(422).end();
             return;
         }
-        db.query('UPDATE Students SET firstname = ?, lastname=?, city=? WHERE id = ?', [req.body['firstname'],req.body['lastname'],req.body['city'],req.body['id']], function (error, results, fields) {
+        db.query('UPDATE Students SET FirstName = ?, Insertion = ?, LastName = ?, Email =?, PhoneNumber = ?, Password = ? WHERE id = ?', [req.body['firstname'],req.body['insertion'],req.body['lastname'],req.body['email'],req.body['phonenumber'],req.body['password'],req.body['id']], function (error, results, fields) {
             if (error){
                 console.log(error);
                 res.status(500).send(error);
@@ -56,18 +56,10 @@ module.exports = {
     },
     delete(req,res,next){
         if(req.body['id'] === undefined || req.body['id'] === "" || isNotNumeric(req.body['id'])){
-            if(req.body['firstname'] === undefined || req.body['lastname'] === undefined || req.body['city'] === undefined){
-                res.status(422).end();
-                return;
-            } else {
-                db.query('DELETE FROM Students WHERE firstname = ? AND lastname = ? AND city = ?', [req.body['firstname'],req.body['lastname'],req.body['city']], function (error, results, fields) {
-                    if (error) throw error;
-                    res.status(200).send(results);
-                    return;
-                });
-            }
+            res.status(422).end();
+            return;
         } else {
-        db.query('DELETE FROM Students WHERE id = ?', [req.body['id']], function (error, results, fields) {
+        db.query('DELETE FROM Students WHERE ID = ?', [req.body['id']], function (error, results, fields) {
             if (error){
                 console.log(error);
                 res.status(500).send(error);
