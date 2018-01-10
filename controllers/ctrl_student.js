@@ -7,8 +7,7 @@ function isNotNumeric(input){
 
 module.exports = {
     getAll(req, res, next){
-        res.status(200);
-        db.query('SELECT StudentNumber, Firstname, Insertion, Lastname, Email, PhoneNumber from Students', function (error, results, fields) {
+        db.query('SELECT ID, Firstname, Insertion, Lastname, Email, PhoneNumber from Students', function (error, results, fields) {
             if (error){
                 console.log(error);
                 res.status(500).send(error);
@@ -19,7 +18,7 @@ module.exports = {
     },
     getById(req,res, next){
         if(req.params['id'] === undefined || req.params['id'] === "" || isNotNumeric(req.params['id'])) {
-            res.status(422).end();
+            res.status(400).end();
             return;
         } 
         db.query('SELECT StudentNumber, Firstname, Insertion, Lastname, Email, PhoneNumber from Students WHERE StudentNumber = ?', [req.params['id']], function (error, results, fields) {
@@ -33,7 +32,7 @@ module.exports = {
     },
     create(req,res,next){
         if(req.body['firstname'] === undefined || req.body['lastname'] === undefined || req.body['city'] === undefined){
-            res.status(422).end();
+            res.status(400).end();
             return;
         }
         db.query('INSERT INTO Students (FirstName, Insertion, LastName, Email, PhoneNumber, Password) VALUES (?,?,?,?,?)', [req.body['firstname'],req.body['insertion'],req.body['lastname'],req.body['email'],req.body['phonenumber'],req.body['password']], function (error, results, fields) {
@@ -42,12 +41,12 @@ module.exports = {
                 res.status(500).send(error);
                 return;
             };
-            res.status(200).send(results);
+            res.status(201).send(results);
           });
     },
     update(req,res,next){
-        if(req.body['id'] === undefined  || req.body['id'] === "" || isNotNumeric(req.body['id']) || req.body['firstname'] === undefined || req.body['lastname'] === undefined || req.body['city'] === undefined){
-            res.status(422).end();
+        if(req.body['id'] === undefined  || req.body['id'] === "" || isNotNumeric(req.body['id']) || req.body['firstname'] === undefined || req.body['lastname'] === undefined || req.body['insertion'] === undefined || req.body['email'] === undefined || req.body['phonenumber'] === undefined || req.body['password'] === undefined){
+            res.status(400).end();
             return;
         }
         db.query('UPDATE Students SET FirstName = ?, Insertion = ?, LastName = ?, Email =?, PhoneNumber = ?, Password = ? WHERE StudentNumber = ?', [req.body['firstname'],req.body['insertion'],req.body['lastname'],req.body['email'],req.body['phonenumber'],req.body['password'],req.body['id']], function (error, results, fields) {
@@ -61,7 +60,7 @@ module.exports = {
     },
     delete(req,res,next){
         if(req.body['id'] === undefined || req.body['id'] === "" || isNotNumeric(req.body['id'])){
-            res.status(422).end();
+            res.status(400).end();
             return;
         } else {
         db.query('DELETE FROM Students WHERE StudentNumber = ?', [req.body['id']], function (error, results, fields) {
