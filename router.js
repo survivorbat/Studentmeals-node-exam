@@ -3,7 +3,7 @@ const router = express.Router();
 
 /* Subroutes */
 const studentapi = require('./routes/studentapi.js');
-router.use('/api/student/', personapi);
+router.use('/api/student/', studentapi);
 
 router.use((error,req,res,next) => {
 	res.status(500).send({
