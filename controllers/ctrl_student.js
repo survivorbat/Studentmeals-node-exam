@@ -1,9 +1,14 @@
 const db = require('../config/db');
 
+function isNotNumeric(input){
+	return !/^-?[\d.]+(?:e-?\d+)?$/.test(input);
+};
+
+
 module.exports = {
     getAll(req, res, next){
         res.status(200);
-        db.query('SELECT ID, Firstname, Insertion, Lastname, Email, PhoneNumber from Students', function (error, results, fields) {
+        db.query('SELECT StudentNumber, Firstname, Insertion, Lastname, Email, PhoneNumber from Students', function (error, results, fields) {
             if (error){
                 console.log(error);
                 res.status(500).send(error);
@@ -17,7 +22,7 @@ module.exports = {
             res.status(422).end();
             return;
         } 
-        db.query('SELECT ID, Firstname, Insertion, Lastname, Email, PhoneNumber from Students WHERE ID = ?', [req.params['id']], function (error, results, fields) {
+        db.query('SELECT StudentNumber, Firstname, Insertion, Lastname, Email, PhoneNumber from Students WHERE StudentNumber = ?', [req.params['id']], function (error, results, fields) {
             if (error){
                 console.log(error);
                 res.status(500).send(error);
@@ -45,7 +50,7 @@ module.exports = {
             res.status(422).end();
             return;
         }
-        db.query('UPDATE Students SET FirstName = ?, Insertion = ?, LastName = ?, Email =?, PhoneNumber = ?, Password = ? WHERE id = ?', [req.body['firstname'],req.body['insertion'],req.body['lastname'],req.body['email'],req.body['phonenumber'],req.body['password'],req.body['id']], function (error, results, fields) {
+        db.query('UPDATE Students SET FirstName = ?, Insertion = ?, LastName = ?, Email =?, PhoneNumber = ?, Password = ? WHERE StudentNumber = ?', [req.body['firstname'],req.body['insertion'],req.body['lastname'],req.body['email'],req.body['phonenumber'],req.body['password'],req.body['id']], function (error, results, fields) {
             if (error){
                 console.log(error);
                 res.status(500).send(error);
@@ -59,7 +64,7 @@ module.exports = {
             res.status(422).end();
             return;
         } else {
-        db.query('DELETE FROM Students WHERE ID = ?', [req.body['id']], function (error, results, fields) {
+        db.query('DELETE FROM Students WHERE StudentNumber = ?', [req.body['id']], function (error, results, fields) {
             if (error){
                 console.log(error);
                 res.status(500).send(error);
@@ -70,7 +75,3 @@ module.exports = {
         }
     }
 }
-
-function isNotNumeric(input){
-	return !/^-?[\d.]+(?:e-?\d+)?$/.test(input);
-};
