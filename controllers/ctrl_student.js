@@ -31,12 +31,12 @@ module.exports = {
           });
     },
     create(req,res,next){
-        if(req.body['firstname'] === undefined || req.body['lastname'] === undefined || req.body['insertion'] === undefined || req.body['email'] === undefined || req.body['phonenumber'] === undefined || req.body['password'] === undefined){
+        if(req.body['studentnumber'] === undefined ||req.body['firstname'] === undefined || req.body['lastname'] === undefined || req.body['insertion'] === undefined || req.body['email'] === undefined || req.body['phonenumber'] === undefined || req.body['password'] === undefined){
             console.log('ERROR 400',req.body);
             res.status(400).send({message:'Missing or wrong parameters! Please refer to the documentation'}).end();
             return;
         }
-        db.query('INSERT INTO Students (FirstName, Insertion, LastName, Email, PhoneNumber, Password) VALUES (?,?,?,?,?,?)', [req.body['firstname'],req.body['insertion'],req.body['lastname'],req.body['email'],req.body['phonenumber'],req.body['password']], function (error, results, fields) {
+        db.query('INSERT INTO Students (StudentNumber, FirstName, Insertion, LastName, Email, PhoneNumber, Password) VALUES (?,?,?,?,?,?,?)', [req.body['studentnumber'],req.body['firstname'],req.body['insertion'],req.body['lastname'],req.body['email'],req.body['phonenumber'],req.body['password']], function (error, results, fields) {
             if (error){
                 console.log(error);
                 res.status(500).send(error);
