@@ -76,7 +76,7 @@ describe('Student API interface', () => {
 			.put('/api/student')
 			.set('content-type', 'application/x-www-form-urlencoded')
 			.set('Authorization', 'Bearer '+token)
-			.send({studentNumber: 0, firstname:'Testpersoon',lastname:'Persoontest',insertion:'',password:'test123test321',phonenumber:'0292929292',email:'john@dedoe.com'})
+			.send({studentNumber: 0, firstname:'Testpersoon',lastname:'Persoontest',insertion:'',password:'test123test321',phonenumber:'0292929292',email:'john@dedoe.com', image: ''})
 			.end((err, res) => {
 				res.should.have.status(200);
 				res.body.affectedRows.should.equal(1);
