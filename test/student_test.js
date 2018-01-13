@@ -11,7 +11,7 @@ describe('Student API interface', () => {
 	it('should POST /api/login token correctly', done => {
 		chai.request(server)
 			.post('/api/login')
-			.send({studentNumber:'0',password:'test123test321'})
+			.send({studentNumber:'10',password:'r'})
 			.end((err, res) => {
 				res.should.have.status(200);
 				token = res.body.token;
@@ -34,7 +34,6 @@ describe('Student API interface', () => {
 			.set('Authorization', 'Bearer '+token)
 			.end((err, res) => {
 				res.should.have.status(200);
-				console.log();
 				res.body[0].Firstname.should.equal('Testpersoon');
 				res.body[0].Lastname.should.equal('Persoontest');
 				done();
@@ -54,7 +53,7 @@ describe('Student API interface', () => {
 			.post('/api/student')
 			.set('content-type', 'application/x-www-form-urlencoded')
 			.set('Authorization', 'Bearer '+token)
-			.send({firstname:'John',lastname:'Doe',insertion:'de',password:'test',phonenumber:'0292929292',email:'john@dedoe.com'})
+			.send({studentNumber: 2039, firstname:'John',lastname:'Doe',insertion:'de',password:'test',phonenumber:'0292929292',email:'john@dedoe.com'})
 			.end((err, res) => {
 				res.should.have.status(201);
 				res.body.affectedRows.should.equal(1);
@@ -80,7 +79,6 @@ describe('Student API interface', () => {
 			.send({studentNumber: 0, firstname:'Testpersoon',lastname:'Persoontest',insertion:'',password:'test123test321',phonenumber:'0292929292',email:'john@dedoe.com'})
 			.end((err, res) => {
 				res.should.have.status(200);
-				console.log(res.body);
 				res.body.affectedRows.should.equal(1);
 				done();
 			});
@@ -91,6 +89,29 @@ describe('Student API interface', () => {
 			.set('content-type', 'application/x-www-form-urlencoded')
 			.set('Authorization', 'Bearer '+token)
 			.send({firstname:'John',insertion:'de',password:'test',phonenumber:'0292929292',email:'john@dedoe.com'})
+			.end((err, res) => {
+				res.should.have.status(400);
+				done();
+			});
+	});
+	it('should delete /api/student correctly', done => {
+		chai.request(server)
+			.delete('/api/student')
+			.set('content-type', 'application/x-www-form-urlencoded')
+			.set('Authorization', 'Bearer '+token)
+			.send({studentNumber: 2039})
+			.end((err, res) => {
+				res.should.have.status(200);
+				res.body.affectedRows.should.equal(1);
+				done();
+			});
+	});
+	it('should delete /api/student incorrectly with missing value', done => {
+		chai.request(server)
+			.delete('/api/student')
+			.set('content-type', 'application/x-www-form-urlencoded')
+			.set('Authorization', 'Bearer '+token)
+			.send({})
 			.end((err, res) => {
 				res.should.have.status(400);
 				done();
