@@ -39,10 +39,10 @@ describe('Meal API interface', () => {
 	});
   it('should POST /api/meal correctly', done => {
 		chai.request(server)
-			.post('/api/student')
+			.post('/api/meal')
 			.set('content-type', 'application/x-www-form-urlencoded')
       .set('Authorization', 'Bearer '+token)
-			.send({Dish:'Boerenkool', DateTime:'2018-01-11 20:30:00', Info:'Boerenkool beschrijving', Price:'2', MaxFellowEaters:'4', DoesCookEat:'1'})
+			.send({Dish:'Boerenkool', DateTime:'2018-01-11 20:30:00', Info:'Boerenkool beschrijving', Price:2, ChefID:0, MaxFellowEaters:4, DoesCookEat:1})
 			.end((err, res) => {
 				res.should.have.status(201);
 				res.body.affectedRows.should.equal(1);

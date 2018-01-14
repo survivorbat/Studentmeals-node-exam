@@ -46,7 +46,7 @@ module.exports = {
           });
     },
     create(req,res,next){
-        if(!bodyContainsAllFields(req.body), false){
+        if(!bodyContainsAllFields(req.body, false)){
             console.log('ERROR 400',req.body);
             res.status(400).send({message:'Missing or wrong parameters! Please refer to the documentation'}).end();
             return;
