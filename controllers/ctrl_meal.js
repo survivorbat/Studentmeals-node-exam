@@ -89,5 +89,20 @@ module.exports = {
             res.status(200).send(results);
           });
         }
-    }
+    },
+		getByIdThePicture(req,res, next){
+        if(req.params['id'] === undefined || req.params['id'] === "" || isNotNumeric(req.params['id'])) {
+            res.status(400).send({message:'Missing or wrong parameters! Please refer to the documentation'}).end();
+            return;
+        }
+        db.query('SELECT picture from Meals WHERE ID = ?', [req.params['id']], function (error, results, fields) {
+            if (error){
+                console.log(error);
+                res.status(500).send(error);
+                return;
+            };
+						res.setHeader('Content-Type', 'image/png' );
+            res.status(200).send(results[0]['picture']);
+          });
+    },
 }

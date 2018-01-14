@@ -18,4 +18,6 @@ routes.put('/', mealcontroller.update);
 
 routes.delete('/', mealcontroller.delete);
 
+routes.get('/:id/picture', mealcontroller.getByIdThePicture);
+
 module.exports = routes;
