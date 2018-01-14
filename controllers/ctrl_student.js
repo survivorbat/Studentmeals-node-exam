@@ -13,6 +13,9 @@ module.exports = {
                 res.status(500).send(error);
                 return;
             };
+            results.forEach(function(r){
+                r.Image = new Buffer(r.Image).toString("base64");
+            });
             res.status(200).send(results);
         });
     },
@@ -27,6 +30,7 @@ module.exports = {
                 res.status(500).send(error);
                 return;
             };
+            results[0].Image = new Buffer(results[0].Image).toString("base64");
             res.status(200).send(results);
           });
     },
