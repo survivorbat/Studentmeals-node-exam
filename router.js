@@ -11,7 +11,10 @@ const mealapi = require('./routes/mealapi');
 router.use(expressJWT({
     secret: config.secretkey
 }).unless({
-    path: ['/api/login']
+    path: [
+    { url: '/api/login', methods: ['POST']  },
+    { url: '/api/student', methods: ['POST']  }
+    ]
 }));
 
 router.use('/api/', authenticationapi);

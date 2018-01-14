@@ -7,7 +7,7 @@ function isNotNumeric(input){
 
 module.exports = {
     getAll(req, res, next){
-        db.query('SELECT StudentNumber, Firstname, Insertion, Lastname, Email, PhoneNumber from Students', function (error, results, fields) {
+        db.query('SELECT StudentNumber, Firstname, Insertion, Lastname, Email, PhoneNumber, Image from Students', function (error, results, fields) {
             if (error){
                 console.log(error);
                 res.status(500).send(error);
@@ -21,7 +21,7 @@ module.exports = {
             res.status(400).send({message:'Missing or wrong parameters! Please refer to the documentation'}).end();
             return;
         } 
-        db.query('SELECT StudentNumber, Firstname, Insertion, Lastname, Email, PhoneNumber from Students WHERE StudentNumber = ?', [req.params['id']], function (error, results, fields) {
+        db.query('SELECT StudentNumber, Firstname, Insertion, Lastname, Email, PhoneNumber, Image from Students WHERE StudentNumber = ?', [req.params['id']], function (error, results, fields) {
             if (error){
                 console.log(error);
                 res.status(500).send(error);
@@ -31,12 +31,12 @@ module.exports = {
           });
     },
     create(req,res,next){
-        if(req.body['studentnumber'] === undefined ||req.body['firstname'] === undefined || req.body['lastname'] === undefined || req.body['insertion'] === undefined || req.body['email'] === undefined || req.body['phonenumber'] === undefined || req.body['password'] === undefined){
+        if(req.body['studentNumber'] === undefined ||req.body['firstname'] === undefined || req.body['lastname'] === undefined || req.body['insertion'] === undefined || req.body['email'] === undefined || req.body['phonenumber'] === undefined || req.body['password'] === undefined){
             console.log('ERROR 400',req.body);
             res.status(400).send({message:'Missing or wrong parameters! Please refer to the documentation'}).end();
             return;
         }
-        db.query('INSERT INTO Students (StudentNumber, FirstName, Insertion, LastName, Email, PhoneNumber, Password) VALUES (?,?,?,?,?,?,?)', [req.body['studentnumber'],req.body['firstname'],req.body['insertion'],req.body['lastname'],req.body['email'],req.body['phonenumber'],req.body['password']], function (error, results, fields) {
+        db.query('INSERT INTO Students (StudentNumber, FirstName, Insertion, LastName, Email, PhoneNumber, Password, Image) VALUES (?,?,?,?,?,?,?,?)', [req.body['studentNumber'],req.body['firstname'],req.body['insertion'],req.body['lastname'],req.body['email'],req.body['phonenumber'],req.body['password'],req.body['image']], function (error, results, fields) {
             if (error){
                 console.log(error);
                 res.status(500).send(error);
@@ -47,11 +47,10 @@ module.exports = {
     },
     update(req,res,next){
         if(req.body['studentNumber'] === undefined || req.body['firstname'] === undefined || req.body['lastname'] === undefined || req.body['insertion'] === undefined || req.body['email'] === undefined || req.body['phonenumber'] === undefined || req.body['password'] === undefined){
-            console.log('400',req.body);
             res.status(400).send({message:'Missing or wrong parameters! Please refer to the documentation'}).end();
             return;
         }
-        db.query('UPDATE Students SET FirstName = ?, Insertion = ?, LastName = ?, Email =?, PhoneNumber = ?, Password = ? WHERE StudentNumber = ?', [req.body['firstname'],req.body['insertion'],req.body['lastname'],req.body['email'],req.body['phonenumber'],req.body['password'],req.body['studentNumber']], function (error, results, fields) {
+        db.query('UPDATE Students SET FirstName = ?, Insertion = ?, LastName = ?, Email =?, PhoneNumber = ?, Password = ?, Image = ? WHERE StudentNumber = ?', [req.body['firstname'],req.body['insertion'],req.body['lastname'],req.body['email'],req.body['phonenumber'],req.body['password'],req.body['studentNumber'],req.body['image']], function (error, results, fields) {
             if (error){
                 console.log(error);
                 res.status(500).send(error);
@@ -62,10 +61,10 @@ module.exports = {
     },
     delete(req,res,next){
         if(req.body['studentNumber'] === undefined || req.body['studentNumber'] === "" || isNotNumeric(req.body['studentNumber'])){
-            res.status(400).send({message:'Missing or wrong parameters! Please refer to the documentation'}).end();fffff
+            res.status(400).send({message:'Missing or wrong parameters! Please refer to the documentation'}).end();
             return;
         } else {
-        db.query('DELETE FROM Students WHERE StudentNumber = ?', [req.body['id']], function (error, results, fields) {
+        db.query('DELETE FROM Students WHERE StudentNumber = ?', [req.body['studentNumber']], function (error, results, fields) {
             if (error){
                 console.log(error);
                 res.status(500).send(error);
