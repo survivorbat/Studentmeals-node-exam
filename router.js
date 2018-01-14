@@ -5,6 +5,7 @@ var config = require('./config/config');
 const expressJWT = require('express-jwt');
 const authenticationapi = require('./routes/authenticationapi');
 const studentapi = require('./routes/studentapi');
+const felloweaterapi = require('./routes/felloweaterapi');
 
 /* The authentication check */
 router.use(expressJWT({
@@ -15,18 +16,6 @@ router.use(expressJWT({
     { url: '/api/student', methods: ['POST']  }
     ]
 }));
-
-router.use('/api/', authenticationapi);
-router.use('/api/student/', studentapi);
-
-router.use((error,req,res,next) => {
-	res.status(500).send({
-        message: error.message,
-        code: error.code,
-        name: error.name,
-        status: error.status
-	}).end();
-});
 
 /* Catch any undefined routes with a 404 status*/
 router.get('*', (req, res) => {
