@@ -5,7 +5,7 @@
   "main": "server.js",
   "scripts": {
     "test": "node node_modules/mocha/bin/_mocha ./test/*test.js --reporter spec --exit",
-    "start": "node ."
+    "start": "nodemon ."
   },
   "author": "Tarik Hacialiogullari, Maarten van der Heijden, Patrick van Batenburg, Gerben Droogers",
   "license": "ISC",
@@ -13,7 +13,7 @@
     "chai": "^4.1.2",
     "chai-http": "^3.0.0",
     "mocha": "^4.0.1",
-    "nodemon": "^1.14.3"
+    "nodemon": "^1.14.11"
   },
   "dependencies": {
     "body-parser": "^1.18.2",

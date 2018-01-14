@@ -1,93 +1,98 @@
-const db = require('../config/db');
+const db = require('../config/db'); 
+
+/**
+ * Checks whether a value can't be converted to the Int type.
+ * 
+ * @param {any} input   The value to test.
+ * @returns true if value can't be converted to the specified type; otherwise, false.
+ */
+function isNotNumeric(input)
+{
+	return !/^-?[\d.]+(?:e-?\d+)?$/.test(input); 
+}; 
+
 
 module.exports = 
 {
     getAll(req, res, next)
     {
-        res.status(200);
         db.query('SELECT * from FellowEaters', function (error, results, fields)
         {
             if (error)
             {
-                console.log(error);
-                res.status(500).send(error);
-                return;
-            };
-            res.status(200).send(results);
-        });
-    },
-    getById(req,res, next)
+                console.log(error); 
+                res.status(500).send(error); 
+                return; 
+            }; 
+
+            res.status(200).send(results); 
+        }); 
+    }, 
+    getById(req, res, next)
     {
-        if(req.params['ID'] === undefined || req.params['ID'] === "" || isNotNumeric(req.params['ID']))
+        if (req.params['ID'] === undefined || req.params['ID'] === "" || isNotNumeric(req.params['ID']))
         {
-            res.status(422).end();
-            return;
-        } 
-        db.query('SELECT * from FellowEaters WHERE ID = ?', [req.params['ID']], function (error, results, fields)
-        {
-            if (error)
-            {
-                console.log(error);
-                res.status(500).send(error);
-                return;
-            };
-            res.status(200).send(results);
-        });
-    },
-    create(req,res,next)
-    {
-        if(req.body['AmountOfGuests'] === undefined || req.body['StudentNumber'] === undefined || req.body['MealID'] === undefined)
-        {
-            res.status(422).end();
-            return;
+            res.status(400).end(); 
+            return; 
         }
-        db.query('INSERT INTO FellowEaters (AmountOfGuests, StudentNumber, MealID) VALUES (?,?,?)', [req.body['AmountOfGuests'], req.body['StudentNumber'],req.body['MealID']], function (error, results, fields)
+
+        db.query('SELECT AmountOfGuests, StudentNumber, MealID from FellowEaters WHERE ID = ?', [req.params['ID']], function (error, results, fields)
         {
             if (error)
             {
-                console.log(error);
-                res.status(500).send(error);
-                return;
-            };
-            res.status(200).send(results);
-        });
-    },
-    update(req,res,next)
+                console.log(error); 
+                res.status(500).send(error); 
+                return; 
+            }; 
+
+            res.status(200).send(results); 
+        }); 
+    }, 
+    create(req, res, next)
     {
-        if(req.body['ID'] === undefined  || req.body['ID'] === "" || isNotNumeric(req.body['ID']) || req.body['MealID'] === undefined || req.body['StudentNumber'] === undefined)
+        if (req.body['AmountOfGuests'] === undefined || req.body['StudentNumber'] === undefined || req.body['MealID'] === undefined)
         {
-            res.status(422).end();
-            return;
+            console.log('ERROR 400', req.body); 
+            res.status(400).end(); 
+            return; 
         }
-        db.query('UPDATE FellowEaters SET AmountOfGuests = ?, StudentNumber=?, MealID=? WHERE ID = ?', [req.body['AmountOfGuests'], req.body['StudentNumber'], req.body['MealID'], req.body['ID']], function (error, results, fields)
+
+        db.query('INSERT INTO FellowEaters (AmountOfGuests, StudentNumber, Mealid) VALUES (?,?,?)', [req.body['AmountOfGuests'], req.body['StudentNumber'], req.body['MealID']], function (error, results, fields)
         {
             if (error)
             {
-                console.log(error);
-                res.status(500).send(error);
-                return;
-            };
-            res.status(200).send(results);
-        });
-    },
-    delete(req,res,next)
+                console.log(error); 
+                res.status(500).send(error); 
+                return; 
+            }; 
+            res.status(201).send(results); 
+        }); 
+    }, 
+    update(req, res, next)
     {
-        if(req.body['ID'] === undefined || req.body['ID'] === "" || isNotNumeric(req.body['ID']))
+        if (req.params['ID'] === undefined || req.params['ID'] === "" || isNotNumeric(req.params['ID']) || req.body['AmountOfGuests'] === undefined || req.body['StudentNumber'] === undefined || req.body['MealID'] === undefined)
         {
-            if(req.body['firstname'] === undefined || req.body['lastname'] === undefined || req.body['city'] === undefined)
+            console.log('ERROR 400', req.body); 
+            res.status(400).end(); 
+            return; 
+        }
+        db.query('UPDATE FellowEaters SET AmountOfGuests = ?, StudentNumber = ?, MealID = ? WHERE ID = ?', [req.body['AmountOfGuests'], req.body['StudentNumber'], req.body['MealID'], req.body['ID']], function (error, results, fields)
+        {
+            if (error)
             {
-                res.status(422).end();
-                return;
-            }
-            else
-            {
-                db.query('DELETE FROM FellowEaters WHERE StudentNumber = ? AND MealID = ?', [req.body['StudentNumber'],req.body['MealID']], function (error, results, fields)
-                {
-                    if (error) throw error;
-                    res.status(200).send(results);
-                    return;
-                });
-            }
+                console.log(error); 
+                res.status(500).send(error); 
+                return; 
+            }; 
+            res.status(200).send(results); 
+        }); 
+    }, 
+    delete(req, res, next)
+    {
+        if (req.body['ID'] === undefined || req.body['ID'] === "" || isNotNumeric(req.body['ID']))
+        {
+            res.status(400).end(); 
+            return; 
         }
         else 
         {
@@ -95,23 +100,13 @@ module.exports =
             {
                 if (error)
                 {
-                    console.log(error);
-                    res.status(500).send(error);
-                    return;
-                };
-                res.status(200).send(results);
-            });
+                    console.log(error); 
+                    res.status(500).send(error); 
+                    return; 
+                }; 
+
+                res.status(200).send(results); 
+            }); 
         }
     }
 }
-
-/**
- * Checks is the value is nummeric or not.
- * 
- * @param {any} input   Input to check on.
- * @returns True on not nummeric values, false on nummeric values
- */
-function isNotNumeric(input)
-{
-	return !/^-?[\d.]+(?:e-?\d+)?$/.test(input);
-};

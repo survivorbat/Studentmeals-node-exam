@@ -6,10 +6,10 @@ Super special awesome web API for Robin en Jan
   - [Details authentication token](#details-authentication-token)
     - [Requesting token](#requesting-token)
     - [Using this API](#using-this-api)
-  - [Details student API](#details-authentication-token)
-  - [Details fellow eaters API](#details-authentication-token)
-  - [Details authentication token](#details-authentication-token)
-  - [Details authentication token](#details-authentication-token)
+  - [Details student API](#details-student-api)
+  - [Details fellow eaters API](#details-fellow-eaters-api)
+  - [Details meals API](#details-meals-api)
+
 
 # prog4node
 Super special awesome web API for Robin en Jan
@@ -20,16 +20,57 @@ Requirements
 - Postman
 
 ### Requesting token
-Method: POST
-Request URL: http://localhost:5000/api/login
-Headers: (Key:Content-Type Value:application/x-www-form-urlencoded)
-Body: (Key:studentNumber value:PLACENUMBER), (Key:password value:PLACEPASSWORD)
-Copy result.
+| Field       | Value                                                        |
+| ----------- | ------------------------------------------------------------ |
+| Method      | POST                                                         |
+| Request URL | http://localhost:5000/api/login                              |
+| Headers     | Key:Content-Type Value:application/x-www-form-urlencoded     |
+| Body        | Key:studentNumber value:NUMMERIC, Key:password value:VALUE   |
 
 ### Using this API
-Method: GET
-Request URL: http://localhost:5000/api/student
-Headers: (Key:Content-Type Value:application/x-www-form-urlencoded), (Key:Authorization Value:Bearer PLACETOKEN)
+| Field       | Value                                                        |
+| ----------- | ------------------------------------------------------------ |
+| Method      | GET                                                          |
+| Request URL | http://localhost:5000/api/student                            |
+| Headers     | Key:Content-Type Value:application/x-www-form-urlencoded     |
+| Body        | Key:Authorization Value:Bearer AUTHTOKEN                     |
 
+
+## Details student API
+TODO
+
+### Using this API
+TODO
+| Field       | Value                                                        |
+| ----------- | ------------------------------------------------------------ |
+| Method      |                                                              |
+| Request URL |                                                              |
+| Headers     |                                                              |
+| Body        |                                                              |
+
+
+## Details fellow eaters API
+TODO
+
+### Using this API
+TODO
+| Field       | Value                                                        |
+| ----------- | ------------------------------------------------------------ |
+| Method      | GET                                                          |
+| Request URL | http://localhost:5000/api/felloweater                        |
+| Headers     | Key:Content-Type Value:application/x-www-form-urlencoded     |
+| Body        | Key:ID Value:NUMMERIC                                        |
+
+## Details meals API
+TODO
+
+### Using this API
+TODO
+| Field       | Value                                                        |
+| ----------- | ------------------------------------------------------------ |
+| Method      |                                                              |
+| Request URL |                                                              |
+| Headers     |                                                              |
+| Body        |                                                              |
 
 Enjoy!
