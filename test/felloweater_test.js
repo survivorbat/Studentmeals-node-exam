@@ -71,23 +71,23 @@ describe('Fellow eater API interface', () =>
             AmountOfGuests: 123,
             StudentNumber: 0,
             MealID: 16
-        }).end((err, res) => 
+        }).end((err, res) =>
         {
-            res.should.have.status(200); 
-            res.body.affectedRows.should.equal(1); 
-            done(); 
-		}); 
+            res.should.have.status(200);
+            res.body.affectedRows.should.equal(1);
+            done();
+		});
 	});
 	it('should put /api/felloweater incorrectly with missing value', done =>
     {
 		chai.request(server).put('/api/felloweater').set('content-type', 'application/x-www-form-urlencoded').set('Authorization', 'Bearer ' + token).send(
         {
             AmountOfGuests: 123
-        }).end((err, res) => 
+        }).end((err, res) =>
         {
             res.should.have.status(400);
             done();
-		}); 
+		});
 	});
 	it('should delete /api/felloweater correctly', done =>
     {
@@ -101,15 +101,15 @@ describe('Fellow eater API interface', () =>
             done();
 		});
 	});
-	it('should delete /api/felloweater incorrectly with missing value', done => 
+	it('should delete /api/felloweater incorrectly with missing value', done =>
     {
 		chai.request(server).delete('/api/felloweater').set('content-type', 'application/x-www-form-urlencoded').set('Authorization', 'Bearer ' + token).send(
         {
 
-        }).end((err, res) => 
+        }).end((err, res) =>
         {
-            res.should.have.status(400); 
-            done(); 
+            res.should.have.status(400);
+            done();
 		});
 	});
 });

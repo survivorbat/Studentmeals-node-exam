@@ -17,6 +17,19 @@ router.use(expressJWT({
     ]
 }));
 
+router.use('/api/', authenticationapi);
+router.use('/api/student/', studentapi);
+router.use('/api/felloweater/', felloweaterapi);
+
+router.use((error,req,res,next) => {
+	res.status(500).send({
+        message: error.message,
+        code: error.code,
+        name: error.name,
+        status: error.status
+	}).end();
+});
+
 /* Catch any undefined routes with a 404 status*/
 router.get('*', (req, res) => {
 	res.status(404).send({
