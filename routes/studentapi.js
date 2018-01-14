@@ -18,6 +18,6 @@ routes.put('/', studentcontroller.update);
 
 routes.delete('/', studentcontroller.delete);
 
-routes.get('/picture/:id', studentcontroller.getImage);
+routes.get('/:id/picture', studentcontroller.getImage);
 
 module.exports = routes;
