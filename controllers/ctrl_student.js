@@ -7,15 +7,12 @@ function isNotNumeric(input){
 
 module.exports = {
     getAll(req, res, next){
-        db.query('SELECT StudentNumber, Firstname, Insertion, Lastname, Email, PhoneNumber, Image from Students', function (error, results, fields) {
+        db.query('SELECT StudentNumber, Firstname, Insertion, Lastname, Email, PhoneNumber from Students', function (error, results, fields) {
             if (error){
                 console.log(error);
                 res.status(500).send(error);
                 return;
             };
-            results.forEach(function(r){
-                r.Image = new Buffer(r.Image).toString("base64");
-            });
             res.status(200).send(results);
         });
     },
@@ -24,13 +21,12 @@ module.exports = {
             res.status(400).send({message:'Missing or wrong parameters! Please refer to the documentation'}).end();
             return;
         } 
-        db.query('SELECT StudentNumber, Firstname, Insertion, Lastname, Email, PhoneNumber, Image from Students WHERE StudentNumber = ?', [req.params['id']], function (error, results, fields) {
+        db.query('SELECT StudentNumber, Firstname, Insertion, Lastname, Email, PhoneNumber from Students WHERE StudentNumber = ?', [req.params['id']], function (error, results, fields) {
             if (error){
                 console.log(error);
                 res.status(500).send(error);
                 return;
             };
-            results[0].Image = new Buffer(results[0].Image).toString("base64");
             res.status(200).send(results);
           });
     },
@@ -40,7 +36,7 @@ module.exports = {
             res.status(400).send({message:'Missing or wrong parameters! Please refer to the documentation'}).end();
             return;
         }
-        db.query('INSERT INTO Students (StudentNumber, FirstName, Insertion, LastName, Email, PhoneNumber, Password, Image) VALUES (?,?,?,?,?,?,?,?)', [req.body['studentNumber'],req.body['firstname'],req.body['insertion'],req.body['lastname'],req.body['email'],req.body['phonenumber'],req.body['password'],req.body['image']], function (error, results, fields) {
+        db.query('INSERT INTO Students (StudentNumber, FirstName, Insertion, LastName, Email, PhoneNumber, Password) VALUES (?,?,?,?,?,?,?,?)', [req.body['studentNumber'],req.body['firstname'],req.body['insertion'],req.body['lastname'],req.body['email'],req.body['phonenumber'],req.body['password'],req.body['image']], function (error, results, fields) {
             if (error){
                 console.log(error);
                 res.status(500).send(error);
@@ -77,5 +73,20 @@ module.exports = {
             res.status(200).send(results);
           });
         }
+    },
+    getImage(req,res,next){
+        if(req.params['id'] === undefined || req.params['id'] === "" || isNotNumeric(req.params['id'])) {
+            res.status(400).send({message:'Missing or wrong parameters! Please refer to the documentation'}).end();
+            return;
+        }
+        db.query('SELECT Image from Students WHERE studentNumber = ?', [req.params['id']], function (error, results, fields) {
+            if (error){
+                console.log(error);
+                res.status(500).send(error);
+                return;
+            };
+			res.setHeader('Content-Type', 'image/jpg' );
+            res.status(200).send(results[0]['Image']);
+          });
     }
 }
