@@ -56,7 +56,7 @@ module.exports =
             return;
         }
 
-        db.query('INSERT INTO FellowEaters (AmountOfGuests, StudentNumber, Mealid) VALUES (?,?,?)', [req.body['AmountOfGuests'], req.body['StudentNumber'], req.body['MealID']], function (error, results, fields)
+        db.query('INSERT INTO FellowEaters (AmountOfGuests, StudentNumber, MealID) VALUES (?,?,?)', [req.body['AmountOfGuests'], req.body['StudentNumber'], req.body['MealID']], function (error, results, fields)
         {
             if (error)
             {
