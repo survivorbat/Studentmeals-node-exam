@@ -6,6 +6,7 @@ const expressJWT = require('express-jwt');
 const authenticationapi = require('./routes/authenticationapi');
 const studentapi = require('./routes/studentapi');
 const mealapi = require('./routes/mealapi');
+const felloweaterapi = require('./routes/felloweaterapi');
 
 /* The authentication check */
 router.use(expressJWT({
@@ -20,6 +21,7 @@ router.use(expressJWT({
 router.use('/api/', authenticationapi);
 router.use('/api/student/', studentapi);
 router.use('/api/meal/', mealapi);
+router.use('/api/felloweater/', felloweaterapi);
 
 router.use((error,req,res,next) => {
 	res.status(500).send({
