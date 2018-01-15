@@ -90,14 +90,14 @@ module.exports =
     },
     delete(req, res, next)
     {
-        if (req.body['ID'] === undefined || req.body['ID'] === "" || isNotNumeric(req.body['ID']))
+        if (req.params['id'] === undefined || req.params['id'] === "" || isNotNumeric(req.params['id']))
         {
             res.status(400).end();
             return;
         }
         else
         {
-            db.query('DELETE FROM FellowEaters WHERE ID = ?', [req.body['ID']], function (error, results, fields)
+            db.query('DELETE FROM FellowEaters WHERE ID = ?', [req.params['id']], function (error, results, fields)
             {
                 if (error)
                 {

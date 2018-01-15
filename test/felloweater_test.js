@@ -89,19 +89,16 @@ describe('Fellow eater API interface', () =>
             done();
 		});
 	});
-	it('should delete /api/felloweater correctly', done =>
+	it('should delete /api/felloweater/0 correctly', done =>
     {
-		chai.request(server).delete('/api/felloweater').set('content-type', 'application/x-www-form-urlencoded').set('Authorization', 'Bearer ' + token).send(
-        {
-            ID:0
-        }).end((err, res) =>
+		chai.request(server).delete('/api/felloweater').set('content-type', 'application/x-www-form-urlencoded').set('Authorization', 'Bearer ' + token).end((err, res) =>
         {
             res.should.have.status(200);
             res.body.affectedRows.should.equal(1);
             done();
 		});
 	});
-	it('should delete /api/felloweater incorrectly with missing value', done =>
+	it('should delete /api/felloweater/test incorrectly with missing value', done =>
     {
 		chai.request(server).delete('/api/felloweater').set('content-type', 'application/x-www-form-urlencoded').set('Authorization', 'Bearer ' + token).send(
         {

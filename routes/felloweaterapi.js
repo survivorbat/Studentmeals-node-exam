@@ -11,6 +11,6 @@ routes.post('/', felloweatercontroller.create);
 
 routes.put('/', felloweatercontroller.update);
 
-routes.delete('/', felloweatercontroller.delete);
+routes.delete('/:id', felloweatercontroller.delete);
 
 module.exports = routes;
