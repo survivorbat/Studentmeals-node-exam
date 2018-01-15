@@ -56,7 +56,7 @@ module.exports =
             return;
         }
 
-        db.query('INSERT INTO FellowEaters (AmountOfGuests, StudentNumber, Mealid) VALUES (?,?,?)', [req.body['AmountOfGuests'], req.body['StudentNumber'], req.body['MealID']], function (error, results, fields)
+        db.query('INSERT INTO FellowEaters (AmountOfGuests, StudentNumber, MealID) VALUES (?,?,?)', [req.body['AmountOfGuests'], req.body['StudentNumber'], req.body['MealID']], function (error, results, fields)
         {
             if (error)
             {
@@ -90,14 +90,14 @@ module.exports =
     },
     delete(req, res, next)
     {
-        if (req.body['ID'] === undefined || req.body['ID'] === "" || isNotNumeric(req.body['ID']))
+        if (req.params['id'] === undefined || req.params['id'] === "" || isNotNumeric(req.params['id']))
         {
             res.status(400).end();
             return;
         }
         else
         {
-            db.query('DELETE FROM FellowEaters WHERE ID = ?', [req.body['ID']], function (error, results, fields)
+            db.query('DELETE FROM FellowEaters WHERE ID = ?', [req.params['id']], function (error, results, fields)
             {
                 if (error)
                 {

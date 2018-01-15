@@ -96,10 +96,9 @@ describe('Student API interface', () => {
 	});
 	it('should delete /api/student correctly', done => {
 		chai.request(server)
-			.delete('/api/student')
+			.delete('/api/student/2039')
 			.set('content-type', 'application/x-www-form-urlencoded')
 			.set('Authorization', 'Bearer '+token)
-			.send({studentNumber: 2039})
 			.end((err, res) => {
 				res.should.have.status(200);
 				res.body.affectedRows.should.equal(1);
@@ -108,10 +107,9 @@ describe('Student API interface', () => {
 	});
 	it('should delete /api/student incorrectly with missing value', done => {
 		chai.request(server)
-			.delete('/api/student')
+			.delete('/api/student/ddd')
 			.set('content-type', 'application/x-www-form-urlencoded')
 			.set('Authorization', 'Bearer '+token)
-			.send({})
 			.end((err, res) => {
 				res.should.have.status(400);
 				done();

@@ -76,11 +76,11 @@ module.exports = {
 		});
 	},
 	delete(req,res,next){
-		if(req.body['ID'] === undefined || req.body['ID'] === "" || isNotNumeric(req.body['ID'])){
+		if(req.params['id'] === undefined || req.params['id'] === "" || isNotNumeric(req.params['id'])){
 			res.status(400).send({message:'Missing or wrong parameters! Please refer to the documentation'}).end();
 			return;
 		} else {
-			db.query('DELETE FROM Meals WHERE ID = ?', [req.body['ID']], function (error, results, fields) {
+			db.query('DELETE FROM Meals WHERE ID = ?', [req.params['id']], function (error, results, fields) {
 				if (error){
 					console.log(error);
 					res.status(500).send(error);

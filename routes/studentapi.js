@@ -16,7 +16,7 @@ routes.post('/', studentcontroller.create);
 
 routes.put('/', studentcontroller.update);
 
-routes.delete('/', studentcontroller.delete);
+routes.delete('/:id', studentcontroller.delete);
 
 routes.get('/:id/picture', studentcontroller.getImage);
 

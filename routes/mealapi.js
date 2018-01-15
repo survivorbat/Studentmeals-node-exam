@@ -16,7 +16,7 @@ routes.post('/', mealcontroller.create);
 
 routes.put('/', mealcontroller.update);
 
-routes.delete('/', mealcontroller.delete);
+routes.delete('/:id', mealcontroller.delete);
 
 routes.put('/:id/picture', mealcontroller.setByIdThePicture);
 
