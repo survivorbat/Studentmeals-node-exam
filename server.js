@@ -9,7 +9,7 @@ const router = require('./router');
 app.use(logger('dev'));
 app.use(bodyParser.json());
 //Parsing application/vnd.api+json as JSON.
-app.use(bodyParser.json({type:'application/vnd.api+json'})); 
+app.use(bodyParser.json({type:'application/vnd.api+json'}));
 app.use(bodyParser.urlencoded({extended:true}));
 
 
