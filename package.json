@@ -5,7 +5,7 @@
   "main": "server.js",
   "scripts": {
     "test": "node node_modules/mocha/bin/_mocha ./test/*test.js --reporter spec --exit",
-    "start": "nodemon ."
+    "start": "node ."
   },
   "author": "Tarik Hacialiogullari, Maarten van der Heijden, Patrick van Batenburg, Gerben Droogers",
   "license": "ISC",
