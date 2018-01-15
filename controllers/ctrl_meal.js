@@ -90,6 +90,21 @@ module.exports = {
           });
         }
     },
+		setByIdThePicture(req,res,next){
+			if(req.params['id'] === undefined || req.params['id'] === "" || isNotNumeric(req.params['id']) || req.body['Picture'] === undefined) {
+				res.status(400).send({message:'Missing or wrong parameters! Please refer to the documentation'}).end();
+				return;
+			}
+			var img = new Buffer(req.body['Picture'], 'base64');
+			db.query('UPDATE Meals SET Picture = ? WHERE ID = ?', [img,req.params['id']], function (error, results, fields) {
+				if (error){
+					console.log(error);
+					res.status(500).send(error);
+					return;
+				};
+				res.status(200).send(results);
+			});
+		},
 		getByIdThePicture(req,res, next){
         if(req.params['id'] === undefined || req.params['id'] === "" || isNotNumeric(req.params['id'])) {
             res.status(400).send({message:'Missing or wrong parameters! Please refer to the documentation'}).end();
