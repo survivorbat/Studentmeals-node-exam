@@ -36,18 +36,52 @@ Requirements
 
 
 ## Details student API
-TODO
+This is the endpoint that concerns the students in the database.
 
 ### Using this API
-TODO
+The following endpoints are available:
 
 | Field       | Value                                                        |
 | ----------- | ------------------------------------------------------------ |
-| Method      |                                                              |
-| Request URL |                                                              |
+| Method      | GET                                                          |
+| Request URL | https://prog4node.herokuapp.com/api/student                  |
 | Headers     |                                                              |
 | Body        |                                                              |
 
+| Field       | Value                                                        |
+| ----------- | ------------------------------------------------------------ |
+| Method      | POST                                                         |
+| Request URL | https://prog4node.herokuapp.com/api/student                  |
+| Headers     |                                                              |
+| Body        |                                                              |
+
+| Field       | Value                                                        |
+| ----------- | ------------------------------------------------------------ |
+| Method      | DELETE                                                       |
+| Request URL | https://prog4node.herokuapp.com/api/student/:id              |
+| Headers     |                                                              |
+| Body        |                                                              |
+
+| Field       | Value                                                        |
+| ----------- | ------------------------------------------------------------ |
+| Method      | PUT                                                          |
+| Request URL | https://prog4node.herokuapp.com/api/student                  |
+| Headers     |                                                              |
+| Body        |                                                              |
+
+| Field       | Value                                                        |
+| ----------- | ------------------------------------------------------------ |
+| Method      | GET                                                          |
+| Request URL | https://prog4node.herokuapp.com/api/student/:id              |
+| Headers     |                                                              |
+| Body        |                                                              |
+
+| Field       | Value                                                        |
+| ----------- | ------------------------------------------------------------ |
+| Method      | GET                                                          |
+| Request URL | https://prog4node.herokuapp.com/api/student/:id/picture      |
+| Headers     |                                                              |
+| Body        |                                                              |
 
 ## Details fellow eaters API
 TODO
