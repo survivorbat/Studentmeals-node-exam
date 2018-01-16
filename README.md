@@ -1,5 +1,4 @@
 # prog4node
-Super special awesome web API for Robin en Jan
   
 # Table of Contents
 - [Endpoints](#endpoints)
@@ -12,7 +11,7 @@ Super special awesome web API for Robin en Jan
 
 
 # prog4node
-Super special awesome web API for Robin en Jan
+<Insert description here>
 
 ## Details authentication token
 Requirements
@@ -23,7 +22,7 @@ Requirements
 | Field       | Value                                                        |
 | ----------- | ------------------------------------------------------------ |
 | Method      | POST                                                         |
-| Request URL | http://localhost:5000/api/login                              |
+| Request URL | https://prog4node.herokuapp.com/api/login                    |
 | Headers     | Key:Content-Type Value:application/x-www-form-urlencoded     |
 | Body        | Key:studentNumber value:NUMMERIC, Key:password value:VALUE   |
 
@@ -31,7 +30,7 @@ Requirements
 | Field       | Value                                                        |
 | ----------- | ------------------------------------------------------------ |
 | Method      | GET                                                          |
-| Request URL | http://localhost:5000/api/student                            |
+| Request URL | https://prog4node.herokuapp.com/api/student                  |
 | Headers     | Key:Content-Type Value:application/x-www-form-urlencoded     |
 | Body        | Key:Authorization Value:Bearer AUTHTOKEN                     |
 
@@ -59,7 +58,7 @@ TODO
 | Field       | Value                                                        |
 | ----------- | ------------------------------------------------------------ |
 | Method      | GET                                                          |
-| Request URL | http://localhost:5000/api/felloweater                        |
+| Request URL | https://prog4node.herokuapp.com/api/felloweater              |
 | Headers     | Key:Content-Type Value:application/x-www-form-urlencoded     |
 | Body        | Key:ID Value:NUMMERIC                                        |
 
