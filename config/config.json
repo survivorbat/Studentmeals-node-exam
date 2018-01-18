@@ -1,6 +1,6 @@
 {
     "webPort": "300",
-    "dbHost": "37.139.12.220",
+    "dbHost": "146.185.167.139",
     "dbUser": "maarten",
     "dbDatabase": "maarten_studentmaaltijden",
     "secretkey": "DITISVOORTARIKEENSUPERHANDIGESECRETKEYDIENIEMANDWEETNAMELIJKSENDNODES"

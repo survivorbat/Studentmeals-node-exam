@@ -24,7 +24,7 @@ router.use('/api/meal/', mealapi);
 router.use('/api/felloweater/', felloweaterapi);
 
 router.use((error,req,res,next) => {
-	res.status(500).send({
+	res.status(error.status).send({
         message: error.message,
         code: error.code,
         name: error.name,
