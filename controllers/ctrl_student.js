@@ -56,7 +56,8 @@ module.exports = {
             res.status(400).send({message:'Missing or wrong parameters! Please refer to the documentation'}).end();
             return;
         }
-        db.query('UPDATE Students SET FirstName = ?, Insertion = ?, LastName = ?, Email =?, PhoneNumber = ?, Password = ? WHERE StudentNumber = ?', [req.body['firstname'],req.body['insertion'],req.body['lastname'],req.body['email'],req.body['phonenumber'],req.body['password'],req.body['studentNumber']], function (error, results, fields) {
+        if(req.body['password']!="" && req.body['password']!=undefined){
+            db.query('UPDATE Students SET FirstName = ?, Insertion = ?, LastName = ?, Email =?, PhoneNumber = ?, Password = ? WHERE StudentNumber = ?', [req.body['firstname'],req.body['insertion'],req.body['lastname'],req.body['email'],req.body['phonenumber'],req.body['password'],req.body['studentNumber']], function (error, results, fields) {
             if (error){
                 console.log(error);
                 res.status(500).send(error);
@@ -64,6 +65,16 @@ module.exports = {
             };
             res.status(200).send(results);
           });
+        } else {
+            db.query('UPDATE Students SET FirstName = ?, Insertion = ?, LastName = ?, Email =?, PhoneNumber = ? WHERE StudentNumber = ?', [req.body['firstname'],req.body['insertion'],req.body['lastname'],req.body['email'],req.body['phonenumber'],req.body['studentNumber']], function (error, results, fields) {
+                if (error){
+                    console.log(error);
+                    res.status(500).send(error);
+                    return;
+                };
+                res.status(200).send(results);
+              });
+        }
     },
     delete(req,res,next){
         if(req.params['id'] === undefined || req.params['id'] === "" || isNotNumeric(req.params['id'])){
