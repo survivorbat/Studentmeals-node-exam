@@ -1,9 +1,9 @@
 /* Declare dependencies */
-const express = require('express');
-const app = express();
-const logger = require('morgan');
-const bodyParser = require('body-parser');
-const router = require('./router');
+const express = require('express'); //Express framework
+const app = express(); //App to interact with express
+const logger = require('morgan'); //Logger
+const bodyParser = require('body-parser'); //Body parser
+const router = require('./router'); //Our main router 
 
 /* Middleware */
 app.use(logger('dev'));
@@ -14,15 +14,15 @@ app.use(bodyParser.urlencoded({extended:true}));
 
 
 
-/* The router file */
+/* The router file, we seperate this from the main server to keep our stuff organised */
 app.use(router);
 
 /* Start server on a pre-defined port or 5000  */
 app.listen(process.env.PORT || 5000, () => { //Sends nodes
 	if(process.env.PORT !== undefined){
-		console.log('Server gestart op poort '+process.env.PORT);
+		console.log('Server gestart op poort '+process.env.PORT); //In case we're not testing locally
 	} else {
-		console.log('Server gestart op poort 5000');
+		console.log('Server gestart op poort 5000'); //If we are testing locally
 	}
 });
 

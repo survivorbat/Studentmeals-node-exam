@@ -1,8 +1,8 @@
-const db = require('../config/db');
-const auth = require('../auth/authentication');
-module.exports = 
+const db = require('../config/db'); //Get the database object
+const auth = require('../auth/authentication'); //Get the authentication object
+module.exports = //Export this directly so the api can use it
 {
-    checkAuthentication(req, res, next)
+    checkAuthentication(req, res, next) //Check if the user is authenticated
     {
         //Looking at the content of the body
         console.dir(req.body);

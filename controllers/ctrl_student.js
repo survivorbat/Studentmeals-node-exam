@@ -1,5 +1,11 @@
 const db = require('../config/db');
 
+/**
+ * Checks whether a value can't be converted to the Int type.
+ * 
+ * @param {any} input   The value to test.
+ * @returns true if value can't be converted to the specified type; otherwise, false.
+ */
 function isNotNumeric(input){
 	return !/^-?[\d.]+(?:e-?\d+)?$/.test(input);
 };
