@@ -15,4 +15,6 @@ routes.delete('/:id', studentcontroller.delete);
 
 routes.get('/:id/picture', studentcontroller.getImage);
 
+routes.put('/:id/picture', studentcontroller.setImage);
+
 module.exports = routes;
