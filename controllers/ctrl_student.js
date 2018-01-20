@@ -2,13 +2,25 @@ const db = require('../config/db');
 
 /**
  * Checks whether a value can't be converted to the Int type.
- * 
+ *
  * @param {any} input   The value to test.
  * @returns true if value can't be converted to the specified type; otherwise, false.
  */
 function isNotNumeric(input){
 	return !/^-?[\d.]+(?:e-?\d+)?$/.test(input);
 };
+
+function updateImage(imgBase64, id) {
+	img = new Buffer(imgBase64, 'base64');
+	db.query('UPDATE Students SET Image = ? WHERE StudentNumber = ?', [img,id], function (error, results, fields) {
+		if (error){
+			console.log(error);
+			res.status(500).send(error);
+			return;
+		};
+		res.status(200).send(results);
+	});
+}
 
 
 module.exports = {
@@ -26,7 +38,7 @@ module.exports = {
         if(req.params['id'] === undefined || req.params['id'] === "" || isNotNumeric(req.params['id'])) {
             res.status(400).send({message:'Missing or wrong parameters! Please refer to the documentation'}).end();
             return;
-        } 
+        }
         db.query('SELECT StudentNumber, Firstname, Insertion, Lastname, Email, PhoneNumber from Students WHERE StudentNumber = ?', [req.params['id']], function (error, results, fields) {
             if (error){
                 console.log(error);
@@ -42,7 +54,11 @@ module.exports = {
             res.status(400).send({message:'Missing or wrong parameters! Please refer to the documentation'}).end();
             return;
         }
-        db.query('INSERT INTO Students (StudentNumber, FirstName, Insertion, LastName, Email, PhoneNumber, Password) VALUES (?,?,?,?,?,?,?)', [req.body['studentNumber'],req.body['firstname'],req.body['insertion'],req.body['lastname'],req.body['email'],req.body['phonenumber'],req.body['password']], function (error, results, fields) {
+				var img = null;
+				if(req.body['Picture'] !== undefined) {
+					img = new Buffer(imgBase64, 'base64');
+				}
+        db.query('INSERT INTO Students (StudentNumber, FirstName, Insertion, LastName, Email, PhoneNumber, Password, Image) VALUES (?,?,?,?,?,?,?,?)', [req.body['studentNumber'],req.body['firstname'],req.body['insertion'],req.body['lastname'],req.body['email'],req.body['phonenumber'],req.body['password'],img], function (error, results, fields) {
             if (error){
                 console.log(error);
                 res.status(500).send(error);
@@ -56,6 +72,9 @@ module.exports = {
             res.status(400).send({message:'Missing or wrong parameters! Please refer to the documentation'}).end();
             return;
         }
+				if(req.body['Picture'] !== undefined) {
+					updateImage(req.body['Picture'], req.body['studentNumber']);
+				}
         if(req.body['password']!="" && req.body['password']!=undefined){
             db.query('UPDATE Students SET FirstName = ?, Insertion = ?, LastName = ?, Email =?, PhoneNumber = ?, Password = ? WHERE StudentNumber = ?', [req.body['firstname'],req.body['insertion'],req.body['lastname'],req.body['email'],req.body['phonenumber'],req.body['password'],req.body['studentNumber']], function (error, results, fields) {
             if (error){
@@ -111,14 +130,6 @@ module.exports = {
 			res.status(400).send({message:'Missing or wrong parameters! Please refer to the documentation'}).end();
 			return;
 		}
-		let img = new Buffer(req.body['Picture'], 'base64');
-		db.query('UPDATE Students SET Image = ? WHERE StudentNumber = ?', [img,req.params['id']], function (error, results, fields) {
-			if (error){
-				console.log(error);
-				res.status(500).send(error);
-				return;
-			};
-			res.status(200).send(results);
-		});
+		updateImage(req.body['Picture'], req.params['id']);
 	},
 }
