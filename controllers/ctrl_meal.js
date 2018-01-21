@@ -39,7 +39,7 @@ function updateImage(imgBase64, id) {
 
 module.exports = {
 	getAll(req, res, next){
-		db.query('SELECT ' + fields + ' FROM Meals', function (error, results, fields) {
+		db.query('SELECT ' + fields + ', (Picture IS NOT NULL) as PictureExist FROM Meals', function (error, results, fields) {
 			if (error){
 				console.log(error);
 				res.status(500).send(error);
@@ -53,7 +53,7 @@ module.exports = {
 			res.status(400).send({message:'Missing or wrong parameters! Please refer to the documentation'}).end();
 			return;
 		}
-		db.query('SELECT ' + fields + ' from Meals WHERE ID = ?', [req.params['id']], function (error, results, fields) {
+		db.query('SELECT ' + fields + ', (Picture IS NOT NULL) as PictureExist FROM Meals WHERE ID = ?', [req.params['id']], function (error, results, fields) {
 			if (error){
 				console.log(error);
 				res.status(500).send(error);
