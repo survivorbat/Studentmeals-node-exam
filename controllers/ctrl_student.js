@@ -56,7 +56,7 @@ module.exports = {
         }
 				var img = null;
 				if(req.body['Picture'] !== undefined) {
-					img = new Buffer(imgBase64, 'base64');
+					img = new Buffer(req.body['Picture'], 'base64');
 				}
         db.query('INSERT INTO Students (StudentNumber, FirstName, Insertion, LastName, Email, PhoneNumber, Password, Image) VALUES (?,?,?,?,?,?,?,?)', [req.body['studentNumber'],req.body['firstname'],req.body['insertion'],req.body['lastname'],req.body['email'],req.body['phonenumber'],req.body['password'],img], function (error, results, fields) {
             if (error){
