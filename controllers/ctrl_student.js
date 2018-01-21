@@ -10,7 +10,7 @@ function isNotNumeric(input){
 	return !/^-?[\d.]+(?:e-?\d+)?$/.test(input);
 };
 
-function updateImage(imgBase64, id) {
+function updateImage(res, imgBase64, id) {
 	img = new Buffer(imgBase64, 'base64');
 	db.query('UPDATE Students SET Image = ? WHERE StudentNumber = ?', [img,id], function (error, results, fields) {
 		if (error){
@@ -18,7 +18,7 @@ function updateImage(imgBase64, id) {
 			res.status(500).send(error);
 			return;
 		};
-		res.status(200).send(results);
+		res.status(200).send(results);6
 	});
 }
 
@@ -73,7 +73,7 @@ module.exports = {
             return;
         }
 				if(req.body['Picture'] !== undefined) {
-					updateImage(req.body['Picture'], req.body['studentNumber']);
+					updateImage(res, req.body['Picture'], req.body['studentNumber']);
 				}
         if(req.body['password']!="" && req.body['password']!=undefined){
             db.query('UPDATE Students SET FirstName = ?, Insertion = ?, LastName = ?, Email =?, PhoneNumber = ?, Password = ? WHERE StudentNumber = ?', [req.body['firstname'],req.body['insertion'],req.body['lastname'],req.body['email'],req.body['phonenumber'],req.body['password'],req.body['studentNumber']], function (error, results, fields) {
@@ -130,6 +130,6 @@ module.exports = {
 			res.status(400).send({message:'Missing or wrong parameters! Please refer to the documentation'}).end();
 			return;
 		}
-		updateImage(req.body['Picture'], req.params['id']);
+		updateImage(res, req.body['Picture'], req.params['id']);
 	},
 }
