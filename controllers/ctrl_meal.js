@@ -25,16 +25,16 @@ function bodyContainsAllFields(body, withID) {
 	return true;
 }
 
-function updateImage(res, imgBase64, id) {
+function updateImage(imgBase64, id) {
 	img = new Buffer(imgBase64, 'base64');
 	db.query('UPDATE Meals SET Picture = ? WHERE ID = ?', [img,id], function (error, results, fields) {
 		if (error){
 			console.log(error);
-			res.status(500).send(error);
-			return;
+			return [500, error];
 		};
-		res.status(200).send(results);
+		return [200, results];
 	});
+	return [200, "ok"]
 }
 
 
@@ -89,7 +89,12 @@ module.exports = {
 			return;
 		}
 		if(req.body['Picture'] !== undefined) {
-			updateImage(res, req.body['Picture'], req.body['ID']);
+			var result = updateImage(req.body['Picture'], req.body['ID']);
+			console.log('test ' + result);
+			if (result[0] === 500) {
+				res.status(500).send(result[1]);
+				return;
+			}
 		}
 		db.query('UPDATE Meals SET Dish = ?, DateTime = ?, Info =?, ChefID = ?, Price = ?, MaxFellowEaters = ?, DoesCookEat = ? WHERE ID = ?', [req.body['Dish'],req.body['DateTime'],req.body['Info'],req.body['ChefID'],req.body['Price'],req.body['MaxFellowEaters'],req.body['DoesCookEat'],req.body['ID']], function (error, results, fields) {
 			if (error){
@@ -120,7 +125,8 @@ module.exports = {
 			res.status(400).send({message:'Missing or wrong parameters! Please refer to the documentation'}).end();
 			return;
 		}
-		updateImage(res, req.body['Picture'], req.params['id']);
+		result = updateImage(req.body['Picture'], req.params['id']);
+		res.status(result[0]).send(result[1]);
 	},
 	getByIdThePicture(req,res, next){
 		if(req.params['id'] === undefined || req.params['id'] === "" || isNotNumeric(req.params['id'])) {
