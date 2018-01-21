@@ -11,7 +11,7 @@ describe('Student API interface', () => {
 	it('should POST /api/login token correctly', done => {
 		chai.request(server)
 			.post('/api/login')
-			.send({studentNumber:'10',password:'r'})
+			.send({studentNumber:'0',password:'test123test321'})
 			.end((err, res) => {
 				res.should.have.status(200);
 				token = res.body.token;

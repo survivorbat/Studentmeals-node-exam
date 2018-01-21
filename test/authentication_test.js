@@ -19,7 +19,7 @@ describe('Authentication API interface', () => {
 	it('should POST /api/login token incorrectly if with incorrectly parameters', done => {
 		chai.request(server)
 			.post('/api/login')
-			.send({studentNumber:'9',password:'hanstextiell'})
+			.send({studentNumber:'0',password:'test123test321123'})
 			.end((err, res) => {
 				res.should.have.status(401);
 				done();
@@ -28,7 +28,7 @@ describe('Authentication API interface', () => {
 	it('should POST /api/login token correctly', done => {
 		chai.request(server)
 			.post('/api/login')
-			.send({studentNumber:'9',password:'hanstextiel'})
+			.send({studentNumber:'0',password:'test123test321'})
 			.end((err, res) => {
 				res.should.have.status(200);
 				token = res.body.token;
