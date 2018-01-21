@@ -45,7 +45,7 @@ The following endpoints are available:
 | ----------- | ------------------------------------------------------------ |
 | Method      | GET                                                          |
 | Request URL | https://prog4node.herokuapp.com/api/student                  |
-| Headers     |                                                              |
+| Headers     | Key:Authorization Value:Bearer AUTHTOKEN                     |
 | Body        |                                                              |
 
 | Field       | Value                                                        |
@@ -59,28 +59,28 @@ The following endpoints are available:
 | ----------- | ------------------------------------------------------------ |
 | Method      | DELETE                                                       |
 | Request URL | https://prog4node.herokuapp.com/api/student/:id              |
-| Headers     |                                                              |
+| Headers     | Key:Authorization Value:Bearer AUTHTOKEN                     |
 | Body        |                                                              |
 
 | Field       | Value                                                        |
 | ----------- | ------------------------------------------------------------ |
 | Method      | PUT                                                          |
 | Request URL | https://prog4node.herokuapp.com/api/student                  |
-| Headers     |                                                              |
+| Headers     | Key:Authorization Value:Bearer AUTHTOKEN                     |
 | Body        |                                                              |
 
 | Field       | Value                                                        |
 | ----------- | ------------------------------------------------------------ |
 | Method      | GET                                                          |
 | Request URL | https://prog4node.herokuapp.com/api/student/:id              |
-| Headers     |                                                              |
+| Headers     | Key:Authorization Value:Bearer AUTHTOKEN                     |
 | Body        |                                                              |
 
 | Field       | Value                                                        |
 | ----------- | ------------------------------------------------------------ |
 | Method      | GET                                                          |
 | Request URL | https://prog4node.herokuapp.com/api/student/:id/picture      |
-| Headers     |                                                              |
+| Headers     | Key:Authorization Value:Bearer AUTHTOKEN                     |
 | Body        |                                                              |
 
 ## Details fellow eaters API
