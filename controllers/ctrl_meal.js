@@ -71,7 +71,7 @@ module.exports = {
 		}
 		var img = null;
 		if(req.body['Picture'] !== undefined) {
-			img = new Buffer(imgBase64, 'base64');
+			img = new Buffer(req.body['Picture'], 'base64');
 		}
 		db.query('INSERT INTO Meals (' + fields + ', Picture) VALUES (?,?,?,?,?,?,?,?,?)', [null,req.body['Dish'],req.body['DateTime'],req.body['Info'],req.body['ChefID'],req.body['Price'],req.body['MaxFellowEaters'],req.body['DoesCookEat'], img], function (error, results, fields) {
 			if (error){
