@@ -18,7 +18,7 @@ function updateImage(res, imgBase64, id) {
 			res.status(500).send(error);
 			return;
 		};
-		res.status(200).send(results);6
+		res.status(200).send(results);
 	});
 }
 
